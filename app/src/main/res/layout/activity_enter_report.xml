@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.duke.compsci316.lostitfoundit.ReportLostActivity">
+    tools:context="edu.duke.compsci316.lostitfoundit.EnterReportActivity">
 
 </android.support.constraint.ConstraintLayout>
