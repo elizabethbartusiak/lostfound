@@ -19,6 +19,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".EnterReportActivity" />
         <activity android:name=".QueryResultsActivity" />
+        <activity android:name=".enter_found_report"></activity>
     </application>
 
 </manifest>
