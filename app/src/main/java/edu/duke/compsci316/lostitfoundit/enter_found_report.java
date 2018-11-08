@@ -8,6 +8,6 @@ public class enter_found_report extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enter_found_report);
+        setContentView(R.layout.activity_enter_found_report2);
     }
 }
