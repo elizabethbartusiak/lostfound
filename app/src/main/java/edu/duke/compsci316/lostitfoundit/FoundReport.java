@@ -7,18 +7,14 @@ package edu.duke.compsci316.lostitfoundit;
 
 public class FoundReport {
     /*FoundReport attributes*/
-    private String myName;//name of item
-    private String myType;//item's type
-    private String myDesc;//user's description of item
+    private Item myItem;
     private String myTime;//report's timestamp
     private String myLocation;//location found
     private String myLeftLoc;//location where item was left/can be retrieved
 
     /*Constructor*/
     public FoundReport(String name, String type, String desc, String time, String loc, String leftLoc) {
-        this.myName = name;
-        this.myType = type;
-        this.myDesc = desc;
+        this.myItem = new Item(name, type, desc);
         this.myTime = time;
         this.myLocation = loc;
         this.myLeftLoc = leftLoc;
@@ -26,13 +22,13 @@ public class FoundReport {
 
     /**                 Accessors               **/
     public String getName() {
-        return this.myName;
+        return this.myItem.getName();
     }
     public String getType() {
-        return this.myType;
+        return this.myItem.getType();
     }
     public String getDescription() {
-        return this.myDesc;
+        return this.myItem.getDescription();
     }
     public String getTime() {
         return this.myTime;
@@ -46,13 +42,13 @@ public class FoundReport {
 
     /**              Mutators                   **/
     public void setName(String n) {
-        this.myName = n;
+        this.myItem.setName(n);
     }
     public void setType(String t) {
-        this.myType = t;
+        this.myItem.setType(t);
     }
     public void setDescription(String d) {
-        this.myDesc = d;
+        this.myItem.setDescription(d);
     }
     public void setTime(String t) {
         this.myTime = t;
