@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonLost = findViewById(R.id.button_lost);
         buttonLost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, EnterReportActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, EnterLostReportActivity.class);
                 startActivity(myIntent);
             }
         });
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         final Button buttonFound = findViewById(R.id.button_found);
         buttonFound.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, EnterReportActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, EnterFoundReportActivity.class);
                 startActivity(myIntent);
             }
         });

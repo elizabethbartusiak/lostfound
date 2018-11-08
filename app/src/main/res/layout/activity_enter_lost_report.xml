@@ -57,7 +57,7 @@
         tools:layout_editor_absoluteY="256dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/lost_report_submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
