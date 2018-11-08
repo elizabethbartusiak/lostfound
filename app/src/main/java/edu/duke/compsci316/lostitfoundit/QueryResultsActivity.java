@@ -21,7 +21,7 @@ public class QueryResultsActivity extends AppCompatActivity {
         String[] titles = {"water bottle", "sweatshirt", "pen", "backpack", "laptop"};
         String[] locations = {"Gross Hall", "BioSci111", "Vondy", "BC", "WU"};
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
-        rv.setAdapter(new QueryResultsAdapter(this, titles, locations));
+        rv.setAdapter(new QueryResultAdapter(this, titles, locations));
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 }
