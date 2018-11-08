@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.duke.compsci316.lostitfoundit.EnterReportActivity">
+    tools:context=".enter_found_report">
 
     <EditText
         android:id="@+id/editText"
@@ -63,5 +63,6 @@
         android:text="Submit"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="337dp" />
+
 
 </android.support.constraint.ConstraintLayout>
