@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         buttonLost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, EnterLostReportActivity.class);
-                startActivity(myIntent);
+                MainActivity.this.startActivity(myIntent);
             }
         });
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         buttonFound.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, EnterFoundReportActivity.class);
-                startActivity(myIntent);
+                MainActivity.this.startActivity(myIntent);
             }
         });
 

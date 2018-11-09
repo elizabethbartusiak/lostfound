@@ -13,14 +13,12 @@ public class EnterLostReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_lost_report);
 
-        final Button buttonLost = findViewById(R.id.lost_report_submit_button);
-        buttonLost.setOnClickListener(new View.OnClickListener() {
+        final Button button = findViewById(R.id.lost_report_submit_button);
+        button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(EnterLostReportActivity.this, QueryResultsActivity.class);
                 startActivity(myIntent);
             }
         });
-
-
     }
 }

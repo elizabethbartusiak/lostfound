@@ -19,7 +19,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".EnterReportActivity" />
         <activity android:name=".QueryResultsActivity" />
-        <activity android:name=".enter_found_report"></activity>
+        <activity android:name=".enter_found_report" />
+        <activity android:name=".EnterFoundReportActivity" />
+        <activity android:name=".EnterLostReportActivity"></activity>
     </application>
 
 </manifest>
