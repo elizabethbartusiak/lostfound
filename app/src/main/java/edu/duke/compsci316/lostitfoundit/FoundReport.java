@@ -5,7 +5,7 @@ package edu.duke.compsci316.lostitfoundit;
  * Edited by Ryan on 11/6/2018
  */
 
-public class FoundReport {
+public class FoundReport implements Report {
     /*FoundReport attributes*/
     private Item myItem;
     private String myTime;//report's timestamp
