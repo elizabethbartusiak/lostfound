@@ -11,19 +11,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Item Title"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
-    <EditText
-        android:id="@+id/lost_report_type_editText"
+    <Spinner
+        android:id="@+id/lost_report_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Item Type"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="73dp" />
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <EditText
         android:id="@+id/lost_report_description_editText"
@@ -31,7 +28,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="Description"
+        android:hint="Description"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="131dp" />
 
@@ -41,19 +38,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:text="Date"
+        android:hint="Date"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="191dp" />
 
-    <EditText
-        android:id="@+id/lost_report_location_editText"
+    <Spinner
+        android:id="@+id/lost_report_location_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:text="Location"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="256dp" />
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"/>
 
     <Button
         android:id="@+id/lost_report_submit_button"
