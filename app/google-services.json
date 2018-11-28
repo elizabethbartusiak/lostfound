@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "818433910204",
+    "firebase_url": "https://finalproject-daac6.firebaseio.com",
+    "project_id": "finalproject-daac6",
+    "storage_bucket": "finalproject-daac6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818433910204:android:bea83d6b928da224",
+        "android_client_info": {
+          "package_name": "edu.duke.compsci316.lostitfoundit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818433910204-47jnjr7cl3ce0sgjfbq5oqjiba06tk99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.duke.compsci316.lostitfoundit",
+            "certificate_hash": "b79b21152834553d2b393112d1f0e9c9a723b4b1"
+          }
+        },
+        {
+          "client_id": "818433910204-ch0la7b9sfci6ia0lrrb96et03lu0bgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLJV0uZ6DUZwAOxhY10nH6Xw3jPATf-RE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818433910204-ch0la7b9sfci6ia0lrrb96et03lu0bgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
