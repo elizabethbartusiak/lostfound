@@ -72,7 +72,6 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                                                          /*timestamp*/, dropdownLocation.getSelectedItem().toString());
                     sendReportToFirebase(foundReport);
                 }
-
             }
         });
 
