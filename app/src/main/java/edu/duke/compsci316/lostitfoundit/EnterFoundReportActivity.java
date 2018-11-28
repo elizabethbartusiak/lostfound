@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+import android.provider.MediaStore;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
 
@@ -45,26 +48,17 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         dropdownLocation.setAdapter(locationAdapter);
 
         //camera part
-        static final int REQUEST_IMAGE_CAPTURE = 1;
+        final int REQUEST_IMAGE_CAPTURE = 1;
 
         //insert new button
         final Button imgButton = findViewById(R.id.img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
-            private void dispatchTakePictureIntent() {
+            public void onClick(View v) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
-            }
-            @Override
-            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-                if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    mImageView.setImageBitmap(imageBitmap);
-                }
-            }
-        });
+            }});
 
         final Button button = findViewById(R.id.found_submit_button);
         button.setOnClickListener(new View.OnClickListener() {
