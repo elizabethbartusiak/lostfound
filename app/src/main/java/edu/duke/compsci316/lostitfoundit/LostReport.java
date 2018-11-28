@@ -12,7 +12,7 @@ public class LostReport implements Report {
     private String myLocation;//location found
 
     /*Constructor*/
-    public LostReport(String name, String type, String desc, String time, String loc, String leftLoc) {
+    public LostReport(String name, String type, String desc, String time, String loc) {
         this.myItem = new Item(name, type, desc);
         this.myTime = time;
         this.myLocation = loc;
