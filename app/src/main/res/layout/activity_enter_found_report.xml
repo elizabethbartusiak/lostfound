@@ -23,7 +23,7 @@
         android:spinnerMode="dropdown"/>
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/found_report_description_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -33,7 +33,7 @@
         tools:layout_editor_absoluteY="131dp" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/found_report_date_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -57,4 +57,3 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="337dp" />
 </LinearLayout>
-

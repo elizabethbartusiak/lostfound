@@ -13,13 +13,15 @@ import android.widget.Toast;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
 
+  private DatabaseRefernce mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_found_report);
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
-
+        final EditText itemDescription = findViewById(R.id.found_report_descriptionn_EditText);
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
          */
@@ -64,11 +66,21 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
                     startActivity(myIntent);
+
+                    Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
+                                                        itemDescription.getText().toString(),
+                                                         /*timestamp*/, dropdownLocation.getSelectedItem().toString());
+                    sendReportToFirebase(foundReport);
                 }
 
             }
         });
 
 
+    }
+    private void sendReportToFirebase(Report report) {
+      mDatabase = FirebaseDatabase.getInstance().getReference();
+
+      mDatabase.child("found").push().setValue(report);
     }
 }
