@@ -50,6 +50,12 @@
         android:spinnerMode="dropdown"/>
 
     <Button
+        android:id="@+id/img_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take a Photo" />
+
+    <Button
         android:id="@+id/found_submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
