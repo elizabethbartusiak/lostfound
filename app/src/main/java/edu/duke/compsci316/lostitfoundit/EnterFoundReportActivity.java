@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.provider.MediaStore;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
-
+    private static int REQUEST_IMAGE_CAPTURE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +48,6 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         dropdownLocation.setAdapter(locationAdapter);
 
         //camera part
-        final int REQUEST_IMAGE_CAPTURE = 1;
-
-        //insert new button
         final Button imgButton = findViewById(R.id.img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,5 +83,15 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ImageView mImageView = findViewById(R.id.img_viewer);
+            mImageView.setImageBitmap(imageBitmap);
+        }
     }
 }
