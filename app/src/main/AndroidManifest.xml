@@ -24,11 +24,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".QueryResultsActivity" />
         <activity android:name=".EnterFoundReportActivity" />
-<<<<<<< HEAD
+
         <activity android:name=".EnterLostReportActivity"/>
-=======
-        <activity android:name=".EnterLostReportActivity"/>
->>>>>>> 45e9c7f563a8c89b16cf584be5eba281597085d8
+
     </application>
 
 </manifest>
