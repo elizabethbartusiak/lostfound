@@ -69,7 +69,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 
                     Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
                                                         itemDescription.getText().toString(),
-                                                         /*timestamp*/, dropdownLocation.getSelectedItem().toString());
+                                                         Firebase.ServerValue.TIMESTAMP , dropdownLocation.getSelectedItem().toString());
                     sendReportToFirebase(foundReport);
                 }
             }
