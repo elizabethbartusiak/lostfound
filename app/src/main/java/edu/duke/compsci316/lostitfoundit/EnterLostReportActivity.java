@@ -10,7 +10,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class EnterLostReportActivity extends AppCompatActivity {
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,8 @@ public class EnterLostReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_lost_report);
 
         final EditText itemTitle = findViewById(R.id.lost_report_editText);
+        final EditText description = findViewById(R.id.lost_report_description_editText);
+        final EditText time = findViewById(R.id.lost_report_date_editText);
 
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
@@ -59,14 +66,30 @@ public class EnterLostReportActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    Report report = new LostReport(itemTitle.getText().toString(),
+                            String.valueOf(dropdown.getSelectedItem()),
+                            description.getText().toString(),
+                            time.getText().toString(),
+                            String.valueOf(dropdownLocation.getSelectedItem())
+                            );
+
+                    sendReportToFirebase(report);
+
+
                     Toast.makeText(EnterLostReportActivity.this, "Successfully submitted",
                             Toast.LENGTH_LONG).show();
-                    Intent myIntent = new Intent(EnterLostReportActivity.this, MainActivity.class);
-                    startActivity(myIntent);
                 }
 
 
             }
         });
     }
+
+    private void sendReportToFirebase(Report report){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("lost").push().setValue(report);
+    }
+
+
 }
