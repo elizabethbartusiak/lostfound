@@ -18,6 +18,7 @@ public class QueryResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
 
+
         String[] titles = {"water bottle", "sweatshirt", "pen", "backpack", "laptop"};
         String[] locations = {"Gross Hall", "BioSci111", "Vondy", "BC", "WU"};
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
