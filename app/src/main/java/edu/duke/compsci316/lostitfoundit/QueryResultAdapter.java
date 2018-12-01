@@ -21,8 +21,8 @@ import static android.content.ContentValues.TAG;
 public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.ViewHolder>{
 
     private Context mContext;
-    private String[] mTitles;
-    private String[] mLocations;
+    private String[] mTitles; // item titles
+    private String[] mLocations; // item locations
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mLinearLayout;

@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
     <EditText
         android:id="@+id/lost_report_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Item Title"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -19,6 +22,7 @@
         android:id="@+id/lost_report_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
 
@@ -29,6 +33,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:hint="Description"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="131dp" />
 
@@ -39,6 +44,7 @@
         android:ems="10"
         android:inputType="date"
         android:hint="Date"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="191dp" />
 
@@ -47,13 +53,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
+        android:layout_marginBottom="3dp"
         android:spinnerMode="dropdown"/>
 
     <Button
         android:id="@+id/lost_report_submit_button"
-        android:layout_width="match_parent"
+        android:layout_width="103dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
         android:text="Submit"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="337dp" />
 </LinearLayout>

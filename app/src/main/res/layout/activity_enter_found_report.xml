@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_margin="8dp">
 
     <EditText
         android:id="@+id/item_title_editText"
@@ -13,6 +14,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Item Title"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -21,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:layout_marginBottom="3dp"/>
 
     <EditText
         android:id="@+id/editText4"
@@ -30,6 +33,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:hint="Description"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="131dp" />
 
@@ -40,6 +44,7 @@
         android:ems="10"
         android:inputType="date"
         android:hint="Date"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="191dp" />
 
@@ -48,27 +53,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:layout_marginBottom="3dp"/>
 
     <ImageView
         android:id="@+id/img_viewer"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         app:srcCompat="@android:drawable/presence_invisible" />
 
     <Button
         android:id="@+id/img_button"
-        android:layout_width="match_parent"
+        android:layout_width="198dp"
         android:layout_height="wrap_content"
-        android:text="Take a Photo" />
+        android:layout_marginBottom="3dp"
+        android:text="Upload Photo" />
 
     <Button
         android:id="@+id/found_submit_button"
-        android:layout_width="match_parent"
+        android:layout_width="103dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
         android:text="Submit"
+        android:layout_marginBottom="3dp"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="337dp" />
+        tools:layout_editor_absoluteY="337dp"/>
 
 </LinearLayout>
 
