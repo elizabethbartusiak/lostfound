@@ -10,9 +10,13 @@ public class FoundReport implements Report {
     private Item myItem;
     private String myTime;//report's timestamp
     private String myLocation;//location found
-    private String myLeftLoc;//location where item was left/can be retrieved
+//    private String myLeftLoc;//location where item was left/can be retrieved
 
-    /*Constructor*/
+    /*Constructors*/
+    public FoundReport(){
+        //empty constructor, used by FirebaseUI
+    }
+
     public FoundReport(String name, String type, String desc, String time, String loc) {
         this.myItem = new Item(name, type, desc);
         this.myTime = time;
@@ -32,12 +36,12 @@ public class FoundReport implements Report {
     public String getTime() {
         return this.myTime;
     }
-    public String getFoundLocation() {
+    public String getLocation() {
         return this.myLocation;
     }
-    public String getLeftLocation() {
-        return this.myLeftLoc;
-    }
+//    public String getLeftLocation() {
+//        return this.myLeftLoc;
+//    }
 
     /**              Mutators                   **/
     public void setName(String n) {
@@ -55,7 +59,14 @@ public class FoundReport implements Report {
     public void setLocation(String l) {
         this.myLocation = l;
     }
-    public void setLeftLocation(String l) {
-        this.myLeftLoc = l;
-    }
+
+//    public void setLeftLocation(String l) {
+//        this.myLeftLoc = l;
+//    }
+
+
+
+
+
+
 }

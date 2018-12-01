@@ -2,6 +2,7 @@ package edu.duke.compsci316.lostitfoundit;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import static android.content.ContentValues.TAG;
 
 /**
  * Created by Elizabeth on 11/8/2018.
  */
 
-public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.ViewHolder>{
+public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, QueryResultAdapter.ViewHolder> {
 
     private Context mContext;
     private String[] mTitles; // item titles
@@ -40,10 +44,12 @@ public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.
         }
     }
 
-    public QueryResultAdapter(final Context context, String[] titles, String[] locations){
+    public QueryResultAdapter(final Context context,
+                              FirebaseRecyclerOptions<FoundReport> options){
+        super(options);
         mContext = context;
-        mTitles = titles;
-        mLocations = locations;
+//        mTitles = titles;
+//        mLocations = locations;
     }
 
     @Override
@@ -77,18 +83,22 @@ public class QueryResultAdapter extends RecyclerView.Adapter<QueryResultAdapter.
 //        mContext.startActivity(intent);
     }
 
+//    @Override
+//    public void onBindViewHolder(ViewHolder holder, int position){
+//        Drawable itemImage = mContext.getDrawable(android.R.drawable.ic_dialog_info);
+//
+//        holder.mImageView.setImageDrawable(itemImage);
+//        holder.mItemName.setText(mTitles[position]);
+//        holder.mLocation.setText(mLocations[position]);
+//    }
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull FoundReport model) {
         Drawable itemImage = mContext.getDrawable(android.R.drawable.ic_dialog_info);
-//        String albumName = mTitles[position].toLowerCase().replaceAll("\\W+",
-//                "");
-//        int drawableId = mContext.getResources().getIdentifier(albumName,
-//                "drawable", mContext.getPackageName());
-//        Drawable albumArtwork = mContext.getDrawable(drawableId);
 
         holder.mImageView.setImageDrawable(itemImage);
-        holder.mItemName.setText(mTitles[position]);
-        holder.mLocation.setText(mLocations[position]);
+        holder.mItemName.setText(model.getName());
+        holder.mLocation.setText(model.getLocation());
     }
 
 }
