@@ -16,14 +16,25 @@ import android.provider.MediaStore;
 import android.os.Environment;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
+
+import java.io.ByteArrayInputStream;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.File;
 import java.io.IOException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.android.gms.tasks.OnFailureListener;
+import android.support.annotation.NonNull;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
     private static int REQUEST_IMAGE_CAPTURE = 1;
     private static int REQUEST_TAKE_PHOTO = 1;
+    private FirebaseStorage mFirebaseStorage;
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +135,41 @@ public class EnterFoundReportActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView mImageView = findViewById(R.id.img_viewer);
             mImageView.setImageBitmap(imageBitmap);
+            uploadImgToFirebaseStorage(imageBitmap);
         }
     }
 
-    String mCurrentPhotoPath;
+    private void uploadImgToFirebaseStorage(Bitmap bm) {
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = mFirebaseStorage.getReference();
+        StorageReference imagesRef = storageRef.child("images");
+
+        ByteArrayInputStream in = generateStream(bm);
+
+        UploadTask uploadTask = imagesRef.putStream(in);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                 taskSnapshot.getMetadata();
+            }
+        });
+    }
+
+    //takes in a Bitmap, and produces and input stream to send to storage
+    private ByteArrayInputStream generateStream(Bitmap bm) {
+        int byteSize = bm.getRowBytes() * bm.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(byteSize);
+        bm.copyPixelsToBuffer(byteBuffer);
+        byte[] byteArray = byteBuffer.array();
+        ByteArrayInputStream bs = new ByteArrayInputStream(byteArray);
+        return bs;
+    }
 
     private File createImageFile() throws IOException {
         // Create an image file name
