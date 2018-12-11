@@ -31,12 +31,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnSuccessListener;
 import android.util.Log;
+import android.graphics.Color;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
     private static int REQUEST_IMAGE_CAPTURE = 1;
     private static int REQUEST_TAKE_PHOTO = 1;
     private FirebaseStorage mFirebaseStorage;
     private String mCurrentPhotoPath;
+    private String mFileName;
     private static final String TAG = "MyActivity";
 
     @Override
@@ -101,6 +103,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
                     startActivity(myIntent);
+                    uploadImgToFirebaseStorage();
                 }
 
             }
@@ -111,10 +114,9 @@ public class EnterFoundReportActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            ImageView mImageView = findViewById(R.id.img_viewer);
-//            mImageView.setImageBitmap(imageBitmap);
-            uploadImgToFirebaseStorage();
+            ImageView mImageView = findViewById(R.id.img_viewer);
+            mImageView.setColorFilter(Color.argb(255, 0, 255, 75));
+
         }
     }
 
@@ -122,7 +124,6 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         mFirebaseStorage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
         StorageReference storageRef = mFirebaseStorage.getReference();
-        StorageReference imagesRef = storageRef.child("images");
 
 //        try {
 //            createImageFile();
@@ -140,6 +141,8 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         StorageMetadata metadata = new StorageMetadata.Builder()
                 .setContentType("image/jpg")
                 .build();
+
+        StorageReference imagesRef = storageRef.child(mFileName);
 
         UploadTask uploadTask = imagesRef.putFile(contentUri, metadata);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -171,6 +174,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         // Create an image file name
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String imageFileName = "JPEG_" + timeStamp.format(new Date()) + "_";
+        mFileName = imageFileName;
         Log.d(TAG, "filename is " + imageFileName);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
