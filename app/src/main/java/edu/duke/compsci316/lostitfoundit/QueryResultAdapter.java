@@ -25,8 +25,6 @@ import static android.content.ContentValues.TAG;
 public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, QueryResultAdapter.ViewHolder> {
 
     private Context mContext;
-    private String[] mTitles; // item titles
-    private String[] mLocations; // item locations
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout mLinearLayout;
@@ -48,14 +46,8 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
                               FirebaseRecyclerOptions<FoundReport> options){
         super(options);
         mContext = context;
-//        mTitles = titles;
-//        mLocations = locations;
     }
 
-    @Override
-    public int getItemCount(){
-        return mTitles.length;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -66,31 +58,21 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
         queryResultHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openItemDetails(mTitles[queryResultHolder.getAdapterPosition()],
-                        mLocations[queryResultHolder.getAdapterPosition()]);
+                openItemDetails(getItem(queryResultHolder.getAdapterPosition()));
             }
         });
 
         return queryResultHolder;
     }
 
-    private void openItemDetails(String albumName, String artistName) {
-        Log.d(TAG, "TODO: implement item details page");
+    private void openItemDetails(FoundReport report) {
+//        Log.d(TAG, "name " + report.getName() + " descrip: " + report.getDescription());
         Toast.makeText(mContext, "TODO: show deets", Toast.LENGTH_SHORT).show();
 //        Intent intent = new Intent(mContext, AlbumActivity.class);
 //        intent.putExtra("album_name_key", albumName);
 //        intent.putExtra("artist_name_key", artistName);
 //        mContext.startActivity(intent);
     }
-
-//    @Override
-//    public void onBindViewHolder(ViewHolder holder, int position){
-//        Drawable itemImage = mContext.getDrawable(android.R.drawable.ic_dialog_info);
-//
-//        holder.mImageView.setImageDrawable(itemImage);
-//        holder.mItemName.setText(mTitles[position]);
-//        holder.mLocation.setText(mLocations[position]);
-//    }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull FoundReport model) {

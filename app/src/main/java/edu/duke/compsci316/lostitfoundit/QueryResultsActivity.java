@@ -18,14 +18,13 @@ import com.google.firebase.database.Query;
 
 public class QueryResultsActivity extends AppCompatActivity {
 
+    FirebaseRecyclerAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
 
-
-        String[] titles = {"water bottle", "sweatshirt", "pen", "backpack", "laptop"};
-        String[] locations = {"Gross Hall", "BioSci111", "Vondy", "BC", "WU"};
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
 
         Query query = FirebaseDatabase.getInstance()
@@ -37,10 +36,21 @@ public class QueryResultsActivity extends AppCompatActivity {
                         .setQuery(query, FoundReport.class)
                         .build();
 
-        FirebaseRecyclerAdapter adapter = new QueryResultAdapter(this, options) ;
+        mAdapter = new QueryResultAdapter(this, options) ;
 
-//        rv.setAdapter(new QueryResultAdapter(this, titles, locations));
-        rv.setAdapter(adapter);
+        rv.setAdapter(mAdapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
     }
 }

@@ -92,7 +92,7 @@ public class EnterLostReportActivity extends AppCompatActivity {
     private void sendReportToFirebase(Report report){
 
         mRef.child("lost").push().setValue(report);
-        Toast.makeText(EnterLostReportActivity.this, " submitted",
+        Toast.makeText(EnterLostReportActivity.this, "Locating your item...",
                 Toast.LENGTH_LONG).show();
     }
 

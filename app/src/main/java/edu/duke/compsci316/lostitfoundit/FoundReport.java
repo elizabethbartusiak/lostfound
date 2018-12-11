@@ -7,9 +7,12 @@ package edu.duke.compsci316.lostitfoundit;
 
 public class FoundReport implements Report {
     /*FoundReport attributes*/
-    private Item myItem;
-    private String myTime;//report's timestamp
-    private String myLocation;//location found
+//    private Item myItem;
+    private String mName;
+    private String mDescription;
+    private String mType;
+    private String mTime;//report's timestamp
+    private String mLocation;//location found
 //    private String myLeftLoc;//location where item was left/can be retrieved
 
     /*Constructors*/
@@ -18,46 +21,67 @@ public class FoundReport implements Report {
     }
 
     public FoundReport(String name, String type, String desc, String time, String loc) {
-        this.myItem = new Item(name, type, desc);
-        this.myTime = time;
-        this.myLocation = loc;
+//        this.myItem = new Item(name, type, desc);
+        this.mName = name;
+        this.mType = type;
+        this.mDescription = desc;
+        this.mTime = time;
+        this.mLocation = loc;
     }
 
     /**                 Accessors               **/
-    public String getName() {
-        return this.myItem.getName();
-    }
-    public String getType() {
-        return this.myItem.getType();
-    }
-    public String getDescription() {
-        return this.myItem.getDescription();
-    }
+//    public String getName() {
+//        return this.myItem.getName();
+//    }
+//    public String getType() {
+//        return this.myItem.getType();
+//    }
+//    public String getDescription() {
+//        return this.myItem.getDescription();
+//    }
     public String getTime() {
-        return this.myTime;
+        return this.mTime;
     }
     public String getLocation() {
-        return this.myLocation;
+        return this.mLocation;
+    }
+    public String getName(){
+        return this.mName;
+    }
+    public String getType(){
+        return this.mType;
+    }
+    public String getDescription(){
+        return this.mDescription;
     }
 //    public String getLeftLocation() {
 //        return this.myLeftLoc;
 //    }
 
     /**              Mutators                   **/
+//    public void setName(String n) {
+//        this.myItem.setName(n);
+//    }
+//    public void setType(String t) {
+//        this.myItem.setType(t);
+//    }
+//    public void setDescription(String d) {
+//        this.myItem.setDescription(d);
+//    }
     public void setName(String n) {
-        this.myItem.setName(n);
+        this.mName = n;
     }
     public void setType(String t) {
-        this.myItem.setType(t);
+        this.mType = t;
     }
     public void setDescription(String d) {
-        this.myItem.setDescription(d);
+        this.mDescription = d;
     }
     public void setTime(String t) {
-        this.myTime = t;
+        this.mTime = t;
     }
     public void setLocation(String l) {
-        this.myLocation = l;
+        this.mLocation = l;
     }
 
 //    public void setLeftLocation(String l) {
