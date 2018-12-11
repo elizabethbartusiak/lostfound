@@ -26,15 +26,18 @@ import java.io.IOException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.android.gms.tasks.OnFailureListener;
 import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnSuccessListener;
+import android.util.Log;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
     private static int REQUEST_IMAGE_CAPTURE = 1;
     private static int REQUEST_TAKE_PHOTO = 1;
     private FirebaseStorage mFirebaseStorage;
     private String mCurrentPhotoPath;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,11 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         final Button imgButton = findViewById(R.id.img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
+//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                }
+                dispatchTakePictureIntent();
             }});
 
         final Button button = findViewById(R.id.found_submit_button);
@@ -101,67 +105,59 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 
             }
         });
-
-
-    }
-
-    public void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        // Ensure that there's a camera activity to handle the intent
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//                return;
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                Uri photoURI = FileProvider.getUriForFile(this,
-//                        "com.example.android.fileprovider",
-//                        photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-//            }
-//        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ImageView mImageView = findViewById(R.id.img_viewer);
-            mImageView.setImageBitmap(imageBitmap);
-            uploadImgToFirebaseStorage(imageBitmap);
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            ImageView mImageView = findViewById(R.id.img_viewer);
+//            mImageView.setImageBitmap(imageBitmap);
+            uploadImgToFirebaseStorage();
         }
     }
 
-    private void uploadImgToFirebaseStorage(Bitmap bm) {
+    private void uploadImgToFirebaseStorage() {
         mFirebaseStorage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
         StorageReference storageRef = mFirebaseStorage.getReference();
         StorageReference imagesRef = storageRef.child("images");
 
-        ByteArrayInputStream in = generateStream(bm);
+//        try {
+//            createImageFile();
+//        }
+//        catch (IOException ex){
+//            Log.d(TAG, "exception thrown on createImageFile(): " + ex);
+//        }
 
-        UploadTask uploadTask = imagesRef.putStream(in);
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        Log.d(TAG, "here is uri: " + contentUri);
+
+        // Create file metadata including the content type
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setContentType("image/jpg")
+                .build();
+
+        UploadTask uploadTask = imagesRef.putFile(contentUri, metadata);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                Log.d(TAG, "uh oh: upload task failed with exception: " + exception);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, "upload to storage sucessful");
                  taskSnapshot.getMetadata();
             }
         });
     }
 
-    //takes in a Bitmap, and produces and input stream to send to storage
+    //takes in a Bitmap, and produces an input stream to send to storage
     private ByteArrayInputStream generateStream(Bitmap bm) {
         int byteSize = bm.getRowBytes() * bm.getHeight();
         ByteBuffer byteBuffer = ByteBuffer.allocate(byteSize);
@@ -175,6 +171,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         // Create an image file name
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String imageFileName = "JPEG_" + timeStamp.format(new Date()) + "_";
+        Log.d(TAG, "filename is " + imageFileName);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -183,6 +180,30 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         );
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(TAG, "path is " + mCurrentPhotoPath);
         return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.d(TAG, "error creating file with exception: " + ex);
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
     }
 }
