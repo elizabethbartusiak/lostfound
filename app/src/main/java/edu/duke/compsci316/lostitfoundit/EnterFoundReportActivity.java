@@ -56,6 +56,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
         final EditText itemDescription = findViewById(R.id.found_report_description_editText);
+        final EditText itemContact = findViewById(R.id.found_report_contact);
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
          */
@@ -120,7 +121,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Report foundReport = new FoundReport(itemTitle.getText().toString(),
                             String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
-                            dropdownLocation.getSelectedItem().toString(), mFileName);
+                            dropdownLocation.getSelectedItem().toString(), mFileName, itemContact.getText().toString());
 
                     sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
                             dropdownLocation.getSelectedItem().toString());
