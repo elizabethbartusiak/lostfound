@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/finalproject.iml" filepath="$PROJECT_DIR$/finalproject.iml" />
-      <module fileurl="file://C:\Users\Elizabeth\Documents\Duke\DukeClasses\Semester3\CS316\finalproject\lostfound.iml" filepath="C:\Users\Elizabeth\Documents\Duke\DukeClasses\Semester3\CS316\finalproject\lostfound.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lostfound.iml" filepath="$PROJECT_DIR$/lostfound.iml" />
+      <module fileurl="file://C:/Users/Elizabeth/Documents/Duke/DukeClasses/Semester3/CS316/finalproject/lostfound.iml" filepath="C:/Users/Elizabeth/Documents/Duke/DukeClasses/Semester3/CS316/finalproject/lostfound.iml" />
     </modules>
   </component>
 </project>
