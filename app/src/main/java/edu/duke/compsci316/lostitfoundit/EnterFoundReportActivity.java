@@ -17,7 +17,8 @@ import android.provider.MediaStore;
 import android.os.Environment;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
-
+import java.io.ByteArrayInputStream;
+import java.nio.ByteBuffer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,13 +28,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.io.File;
 import java.io.IOException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.android.gms.tasks.OnFailureListener;
+import android.support.annotation.NonNull;
+import com.google.android.gms.tasks.OnSuccessListener;
+import android.util.Log;
+import android.graphics.Color;
 import java.util.Locale;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
     private static int REQUEST_IMAGE_CAPTURE = 1;
     private static int REQUEST_TAKE_PHOTO = 1;
+    private FirebaseStorage mFirebaseStorage;
     private String mCurrentPhotoPath;
-
+    private String mFileName;
+    private static final String TAG = "MyActivity";
     private DatabaseReference mDatabase;
 
     @Override
@@ -71,28 +83,27 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         final Button imgButton = findViewById(R.id.img_button);
         imgButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }});
+//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                }
+                dispatchTakePictureIntent();
+            }
+        });
 
         final Button button = findViewById(R.id.found_submit_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(itemTitle.getText().toString().equals("")){
+                if (itemTitle.getText().toString().equals("")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Item Title required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if(String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")){
+                } else if (String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "TYPE field required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if(String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")){
+                } else if (String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Location field required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Date currentTime = Calendar.getInstance().getTime();
 
                     Toast.makeText(EnterFoundReportActivity.this, "submitted",
@@ -100,33 +111,86 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
                     startActivity(myIntent);
 
-                    Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
-                                                        itemDescription.getText().toString(),
-                                                         currentTime.toString(), dropdownLocation.getSelectedItem().toString());
+                    Report foundReport = new FoundReport(itemTitle.getText().toString(),
+                            String.valueOf(dropdown.getSelectedItem()).toString(),
+                            itemDescription.getText().toString(),
+                            dropdownLocation.getSelectedItem().toString(), null);
 
                     sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
                             dropdownLocation.getSelectedItem().toString());
+
+                    uploadImgToFirebaseStorage();
                 }
             }
         });
-
-
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
             ImageView mImageView = findViewById(R.id.img_viewer);
-            mImageView.setImageBitmap(imageBitmap);
+            mImageView.setColorFilter(Color.argb(255, 0, 255, 75));
+
         }
     }
 
-    private File createImageFile() throws IOException {
+    private void uploadImgToFirebaseStorage () {
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = mFirebaseStorage.getReference();
+
+//        try {
+//            createImageFile();
+//        }
+//        catch (IOException ex){
+//            Log.d(TAG, "exception thrown on createImageFile(): " + ex);
+//        }
+
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        Log.d(TAG, "here is uri: " + contentUri);
+
+        // Create file metadata including the content type
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setContentType("image/jpg")
+                .build();
+
+        StorageReference imagesRef = storageRef.child(mFileName);
+
+        UploadTask uploadTask = imagesRef.putFile(contentUri, metadata);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                Log.d(TAG, "uh oh: upload task failed with exception: " + exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, "upload to storage sucessful");
+                taskSnapshot.getMetadata();
+            }
+        });
+    }
+
+    //takes in a Bitmap, and produces an input stream to send to storage
+    private ByteArrayInputStream generateStream (Bitmap bm){
+        int byteSize = bm.getRowBytes() * bm.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(byteSize);
+        bm.copyPixelsToBuffer(byteBuffer);
+        byte[] byteArray = byteBuffer.array();
+        ByteArrayInputStream bs = new ByteArrayInputStream(byteArray);
+        return bs;
+    }
+
+    private File createImageFile () throws IOException {
         // Create an image file name
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String imageFileName = "JPEG_" + timeStamp.format(new Date()) + "_";
+        mFileName = imageFileName;
+        Log.d(TAG, "filename is " + imageFileName);
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -135,13 +199,37 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         );
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(TAG, "path is " + mCurrentPhotoPath);
         return image;
     }
 
     private void sendReportToFirebase(Report report, String type, String location) {
-      mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 //      mDatabase.child("found").push().setValue(report);
-      mDatabase.child("found").child(type).child(location).push().setValue(report);
+        mDatabase.child("found").child(type).child(location).push().setValue(report);
     }
+    private void dispatchTakePictureIntent () {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.d(TAG, "error creating file with exception: " + ex);
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
 }

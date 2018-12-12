@@ -7,41 +7,27 @@ package edu.duke.compsci316.lostitfoundit;
 
 public class FoundReport implements Report {
     /*FoundReport attributes*/
-//    private Item myItem;
     private String mName;
-    private String mDescription;
     private String mType;
-    private String mTime;//report's timestamp
+    private String mDescription;
     private String mLocation;//location found
-//    private String myLeftLoc;//location where item was left/can be retrieved
+    private String mImageName;
+
+    /*Constructor*/
+    public FoundReport(String name, String type, String desc, String loc, String img) {
+        this.mName = name;
+        this.mType = type;
+        this.mDescription = desc;
+        this.mLocation = loc;
+        this.mImageName = img;
+    }
 
     /*Constructors*/
     public FoundReport(){
         //empty constructor, used by FirebaseUI
     }
 
-    public FoundReport(String name, String type, String desc, String time, String loc) {
-//        this.myItem = new Item(name, type, desc);
-        this.mName = name;
-        this.mType = type;
-        this.mDescription = desc;
-        this.mTime = time;
-        this.mLocation = loc;
-    }
-
     /**                 Accessors               **/
-//    public String getName() {
-//        return this.myItem.getName();
-//    }
-//    public String getType() {
-//        return this.myItem.getType();
-//    }
-//    public String getDescription() {
-//        return this.myItem.getDescription();
-//    }
-    public String getTime() {
-        return this.mTime;
-    }
     public String getLocation() {
         return this.mLocation;
     }
@@ -54,20 +40,14 @@ public class FoundReport implements Report {
     public String getDescription(){
         return this.mDescription;
     }
+    public String getImageName() {
+        return this.mImageName;
+    }
 //    public String getLeftLocation() {
 //        return this.myLeftLoc;
 //    }
 
     /**              Mutators                   **/
-//    public void setName(String n) {
-//        this.myItem.setName(n);
-//    }
-//    public void setType(String t) {
-//        this.myItem.setType(t);
-//    }
-//    public void setDescription(String d) {
-//        this.myItem.setDescription(d);
-//    }
     public void setName(String n) {
         this.mName = n;
     }
@@ -77,20 +57,8 @@ public class FoundReport implements Report {
     public void setDescription(String d) {
         this.mDescription = d;
     }
-    public void setTime(String t) {
-        this.mTime = t;
-    }
     public void setLocation(String l) {
         this.mLocation = l;
     }
-
-//    public void setLeftLocation(String l) {
-//        this.myLeftLoc = l;
-//    }
-
-
-
-
-
-
+    public void setImageName(String str) {this.mImageName = str;}
 }

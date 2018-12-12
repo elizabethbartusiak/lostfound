@@ -10,13 +10,11 @@ public interface Report {
     public String getName();
     public String getType();
     public String getDescription();
-    public String getTime();
     public String getLocation();
 
     /**              Mutators                   **/
     public void setName(String n);
     public void setType(String t);
     public void setDescription(String d);
-    public void setTime(String t);
     public void setLocation(String l);
 }
