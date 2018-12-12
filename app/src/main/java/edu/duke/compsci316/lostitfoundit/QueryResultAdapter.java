@@ -1,6 +1,7 @@
 package edu.duke.compsci316.lostitfoundit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -75,11 +76,9 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
 
     private void openItemDetails(FoundReport report) {
 //        Log.d(TAG, "name " + report.getName() + " descrip: " + report.getDescription());
-        Toast.makeText(mContext, "TODO: show deets", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(mContext, AlbumActivity.class);
-//        intent.putExtra("album_name_key", albumName);
-//        intent.putExtra("artist_name_key", artistName);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, QueryResultDetailsActivity.class);
+        intent.putExtra("report", report);
+        mContext.startActivity(intent);
     }
 
     @Override
@@ -98,7 +97,7 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
 //                .child(model.get);
         StorageReference ref = FirebaseStorage.getInstance()
                 .getReference()
-                .child("images/" + model.getImageName());
+                .child(model.getImageName());
 
         Toast.makeText(mContext, ref.toString(), Toast.LENGTH_SHORT).show();
 

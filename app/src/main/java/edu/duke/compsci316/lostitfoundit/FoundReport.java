@@ -1,11 +1,13 @@
 package edu.duke.compsci316.lostitfoundit;
 
+import java.io.Serializable;
+
 /**
  * Created by Elizabeth on 11/2/2018.
  * Edited by Ryan on 11/6/2018
  */
 
-public class FoundReport implements Report {
+public class FoundReport implements Report, Serializable {
     /*FoundReport attributes*/
     private String mName;
     private String mType;

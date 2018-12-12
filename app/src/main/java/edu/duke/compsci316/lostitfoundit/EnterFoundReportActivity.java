@@ -72,7 +72,13 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         //LOCATION SPINNER
         final Spinner dropdownLocation = findViewById(R.id.location_spinner);
         //create a list of items for the spinner.
-        String[] places = new String[]{"Where did you find it?", "West Union", "Bryan Center", "Divinity School", "East Campus"};
+        String[] places = new String[]{"Where did you find it?", "Baldwin Auditorium","Brodie Gym", "East Campus Classrooms",
+                "East Campus Dorms",
+                "Lilly Library", "Marketplace",
+                "Central Campus Dorms", "Swift Dorms", "Bryan Center", "Divinity School",
+                "Perkins/Bostock Library", "West Campus Classrooms",
+                "West Campus Dorms", "West Union",
+                "Wilson Gym", "On the Bus", "Others Locations"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
