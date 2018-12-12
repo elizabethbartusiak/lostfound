@@ -31,7 +31,7 @@ public class LostReport implements Report {
     public String getTime() {
         return this.myTime;
     }
-    public String getFoundLocation() {
+    public String getLocation() {
         return this.myLocation;
     }
 

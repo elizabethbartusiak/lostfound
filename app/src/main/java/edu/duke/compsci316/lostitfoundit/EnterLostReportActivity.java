@@ -15,7 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class EnterLostReportActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,9 @@ public class EnterLostReportActivity extends AppCompatActivity {
         final EditText itemTitle = findViewById(R.id.lost_report_editText);
         final EditText description = findViewById(R.id.lost_report_description_editText);
         final EditText time = findViewById(R.id.lost_report_date_editText);
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mRef = mDatabase.getReference();
 
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
@@ -75,9 +79,9 @@ public class EnterLostReportActivity extends AppCompatActivity {
 
                     sendReportToFirebase(report);
 
+                    Intent intent = new Intent(EnterLostReportActivity.this, QueryResultsActivity.class);
+                    startActivity(intent);
 
-                    Toast.makeText(EnterLostReportActivity.this, "Successfully submitted",
-                            Toast.LENGTH_LONG).show();
                 }
 
 
@@ -86,9 +90,10 @@ public class EnterLostReportActivity extends AppCompatActivity {
     }
 
     private void sendReportToFirebase(Report report){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("lost").push().setValue(report);
+        mRef.child("lost").push().setValue(report);
+        Toast.makeText(EnterLostReportActivity.this, "Locating your item...",
+                Toast.LENGTH_LONG).show();
     }
 
 

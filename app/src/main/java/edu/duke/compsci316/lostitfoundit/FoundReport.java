@@ -7,60 +7,66 @@ package edu.duke.compsci316.lostitfoundit;
 
 public class FoundReport implements Report {
     /*FoundReport attributes*/
-    private Item myItem;
+    private String myName;
+    private String myType;
+    private String myDescription;
     private String myTime;//report's timestamp
     private String myLocation;//location found
-    private String myLeftLoc;//location where item was left/can be retrieved
     private String myImgName;
 
     /*Constructor*/
-    public FoundReport(String name, String type, String desc, String time, String loc, String leftLoc, String img) {
-        this.myItem = new Item(name, type, desc);
+    public FoundReport(String name, String type, String desc, String time, String loc, String img) {
+        this.myName = name;
+        this.myType = type;
+        this.myDescription = desc;
         this.myTime = time;
         this.myLocation = loc;
-        this.myLeftLoc = leftLoc;
         this.myImgName = img;
     }
 
+    /*Constructors*/
+    public FoundReport(){
+        //empty constructor, used by FirebaseUI
+    }
+
     /**                 Accessors               **/
-    public String getName() {
-        return this.myItem.getName();
-    }
-    public String getType() {
-        return this.myItem.getType();
-    }
-    public String getDescription() {
-        return this.myItem.getDescription();
-    }
     public String getTime() {
         return this.myTime;
     }
-    public String getFoundLocation() {
+    public String getLocation() {
         return this.myLocation;
     }
-    public String getLeftLocation() {
-        return this.myLeftLoc;
+    public String getName(){
+        return this.myName;
     }
-    public String getImageName() {return this.myImgName;}
+    public String getType(){
+        return this.myType;
+    }
+    public String getDescription(){
+        return this.myDescription;
+    }
+    public String getImageName() {
+        return this.myImgName;
+    }
+//    public String getLeftLocation() {
+//        return this.myLeftLoc;
+//    }
 
     /**              Mutators                   **/
     public void setName(String n) {
-        this.myItem.setName(n);
+        this.myName = n;
     }
     public void setType(String t) {
-        this.myItem.setType(t);
+        this.myType = t;
     }
     public void setDescription(String d) {
-        this.myItem.setDescription(d);
+        this.myDescription = d;
     }
     public void setTime(String t) {
         this.myTime = t;
     }
     public void setLocation(String l) {
         this.myLocation = l;
-    }
-    public void setLeftLocation(String l) {
-        this.myLeftLoc = l;
     }
     public void setImageName(String str) {this.myImgName = str;}
 }

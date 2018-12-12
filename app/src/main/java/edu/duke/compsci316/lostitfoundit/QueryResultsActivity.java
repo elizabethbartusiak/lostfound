@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 /**
  * Shows results for queries
  * @author Elizabeth Bartusiak
@@ -13,15 +18,39 @@ import android.support.v7.widget.RecyclerView;
 
 public class QueryResultsActivity extends AppCompatActivity {
 
+    FirebaseRecyclerAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
 
-        String[] titles = {"water bottle", "sweatshirt", "pen", "backpack", "laptop"};
-        String[] locations = {"Gross Hall", "BioSci111", "Vondy", "BC", "WU"};
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
-        rv.setAdapter(new QueryResultAdapter(this, titles, locations));
+
+        Query query = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("found");
+
+        FirebaseRecyclerOptions<FoundReport> options =
+                new FirebaseRecyclerOptions.Builder<FoundReport>()
+                        .setQuery(query, FoundReport.class)
+                        .build();
+
+        mAdapter = new QueryResultAdapter(this, options) ;
+
+        rv.setAdapter(mAdapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
     }
 }

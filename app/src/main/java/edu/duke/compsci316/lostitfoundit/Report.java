@@ -11,7 +11,7 @@ public interface Report {
     public String getType();
     public String getDescription();
     public String getTime();
-    public String getFoundLocation();
+    public String getLocation();
 
     /**              Mutators                   **/
     public void setName(String n);

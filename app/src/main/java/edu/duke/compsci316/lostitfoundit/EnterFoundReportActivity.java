@@ -3,6 +3,7 @@ package edu.duke.compsci316.lostitfoundit;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +17,14 @@ import android.provider.MediaStore;
 import android.os.Environment;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
-
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.security.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +37,7 @@ import android.support.annotation.NonNull;
 import com.google.android.gms.tasks.OnSuccessListener;
 import android.util.Log;
 import android.graphics.Color;
+import java.util.Locale;
 
 public class EnterFoundReportActivity extends AppCompatActivity {
     private static int REQUEST_IMAGE_CAPTURE = 1;
@@ -40,6 +46,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     private String mFileName;
     private static final String TAG = "MyActivity";
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +54,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_found_report);
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
-
+        final EditText itemDescription = findViewById(R.id.found_report_description_editText);
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
          */
@@ -81,37 +88,41 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 //                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 //                }
                 dispatchTakePictureIntent();
-            }});
+            }
+        });
 
         final Button button = findViewById(R.id.found_submit_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(itemTitle.getText().toString().equals("")){
+                if (itemTitle.getText().toString().equals("")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Item Title required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if(String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")){
+                } else if (String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "TYPE field required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else if(String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")){
+                } else if (String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Location field required",
                             Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(EnterFoundReportActivity.this, "Successfully submitted",
+                } else {
+                    Date currentTime = Calendar.getInstance().getTime();
+
+                    Toast.makeText(EnterFoundReportActivity.this, "submitted",
                             Toast.LENGTH_LONG).show();
                     Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
                     startActivity(myIntent);
+
+                    Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
+                            itemDescription.getText().toString(),
+                            currentTime.toString(), dropdownLocation.getSelectedItem().toString(), mFileName);
+                    sendReportToFirebase(foundReport);
                     uploadImgToFirebaseStorage();
                 }
-
             }
         });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             ImageView mImageView = findViewById(R.id.img_viewer);
@@ -120,7 +131,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImgToFirebaseStorage() {
+    private void uploadImgToFirebaseStorage () {
         mFirebaseStorage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
         StorageReference storageRef = mFirebaseStorage.getReference();
@@ -155,13 +166,13 @@ public class EnterFoundReportActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "upload to storage sucessful");
-                 taskSnapshot.getMetadata();
+                taskSnapshot.getMetadata();
             }
         });
     }
 
     //takes in a Bitmap, and produces an input stream to send to storage
-    private ByteArrayInputStream generateStream(Bitmap bm) {
+    private ByteArrayInputStream generateStream (Bitmap bm){
         int byteSize = bm.getRowBytes() * bm.getHeight();
         ByteBuffer byteBuffer = ByteBuffer.allocate(byteSize);
         bm.copyPixelsToBuffer(byteBuffer);
@@ -170,7 +181,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         return bs;
     }
 
-    private File createImageFile() throws IOException {
+    private File createImageFile () throws IOException {
         // Create an image file name
         SimpleDateFormat timeStamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String imageFileName = "JPEG_" + timeStamp.format(new Date()) + "_";
@@ -188,7 +199,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         return image;
     }
 
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent () {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -209,5 +220,11 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+    }
+
+    private void sendReportToFirebase (Report report){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("found").push().setValue(report);
     }
 }
