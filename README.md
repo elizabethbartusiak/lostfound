@@ -8,7 +8,7 @@ An app to help members of the Duke community find lost items.
 
 <p><img width="589" alt="screen shot 2018-12-12 at 5 17 24 pm" src="https://user-images.githubusercontent.com/22549537/49902399-d37f7b80-fe31-11e8-91a0-d47c20c8324c.png"></p>
 
-We built this app using [Android Studio](https://developer.android.com/studio/). The front-end and UI was designed using XML. The app lifecycle and activities were coded in Java. On the backend, we used [Firebase](https://firebase.google.com/) to host our database and the [Android java.sql](https://developer.android.com/reference/java/sql/package-summary) API for the interactions between our app and the database.
+We built this app using [Android Studio](https://developer.android.com/studio/). The front-end and UI was designed using XML. The app lifecycle and activities were coded in Java. On the backend, we used [Firebase](https://firebase.google.com/) to host our database and the Firebase API for the interactions between our app and the database.
 
 ### Data Structure
 Our data is structured in the form of a JSON tree:
@@ -16,25 +16,25 @@ Our data is structured in the form of a JSON tree:
 ```
 {
   "found" : {
-    "clothing" : {
-      "East Campus" : {
+    "water bottle" : {
+      "Perkins" : {
         "-LTUre_BXjXiStaMnnKw" : {
-          "description" : "ysg",
-          "location" : "East Campus",
-          "name" : "hahs",
+          "description" : "Left at Perkins Front Desk",
+          "location" : "Perkins",
+          "name" : "Nike Water Bottle signed by Zion",
           "time" : "Tue Dec 11 19:43:48 EST 2018",
-          "type" : "clothing"
+          "type" : "water bottle"
         }
       }
     },
-    "electronic" : {
+    "clothing" : {
       "Divinity School" : {
         "-LTUvltJDMgFL343CGnC" : {
-          "description" : "y",
+          "description" : "Vintage Duke hoodie signed by Marvin Bagley",
           "location" : "Divinity School",
-          "name" : "gs",
+          "name" : "Blue Duke Hoodie",
           "time" : "Tue Dec 11 20:01:46 EST 2018",
-          "type" : "electronic"
+          "type" : "clothing"
         }
       }
     }...
