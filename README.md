@@ -6,7 +6,7 @@ An app to help members of the Duke community find lost items.
 
 ### Object-Oriented Design
 
-<p><img width="589" alt="screen shot 2018-12-12 at 5 17 24 pm" src="https://user-images.githubusercontent.com/22549537/49902399-d37f7b80-fe31-11e8-91a0-d47c20c8324c.png"></p>
+<p><img width="574" alt="screen shot 2018-12-12 at 6 38 15 pm" src="https://user-images.githubusercontent.com/22549537/49905744-ecd9f500-fe3c-11e8-8c0c-6011fb1ea3ee.png"></p>
 
 We built this app using [Android Studio](https://developer.android.com/studio/). The front-end and UI was designed using XML. The app lifecycle and activities were coded in Java. On the backend, we used [Firebase](https://firebase.google.com/) to host our database and the Firebase API for the interactions between our app and the database.
 
