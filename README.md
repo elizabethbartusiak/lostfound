@@ -44,7 +44,13 @@ Whenever a user reports a found item, this item will be stored as a JSON object 
 
 Whenever a user reports a lost item, instead of storing lost item reports on the database, the information from the lost report will be used to query the data table of found items to determine if the item has been found, and the user will be presented with a list of found items that match the query that they entered. 
 
+Our JSON tree has **4 layers**:
+1. Found items
+2. Type of item
+3. Location where item was found
+4. Item object
 
+We chose to structure it this way as whenever 
 
 ## Getting Started
 
