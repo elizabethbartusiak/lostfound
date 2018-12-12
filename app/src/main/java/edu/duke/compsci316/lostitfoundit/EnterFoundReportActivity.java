@@ -103,7 +103,9 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
                                                         itemDescription.getText().toString(),
                                                          currentTime.toString(), dropdownLocation.getSelectedItem().toString());
-                    sendReportToFirebase(foundReport);
+
+                    sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
+                            dropdownLocation.getSelectedItem().toString());
                 }
             }
         });
@@ -136,9 +138,10 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         return image;
     }
 
-    private void sendReportToFirebase(Report report) {
+    private void sendReportToFirebase(Report report, String type, String location) {
       mDatabase = FirebaseDatabase.getInstance().getReference();
 
-      mDatabase.child("found").push().setValue(report);
+//      mDatabase.child("found").push().setValue(report);
+      mDatabase.child("found").child(type).child(location).push().setValue(report);
     }
 }
