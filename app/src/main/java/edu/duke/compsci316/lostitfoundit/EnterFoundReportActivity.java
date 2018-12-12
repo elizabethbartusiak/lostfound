@@ -51,6 +51,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFileName = null;
         setContentView(R.layout.activity_enter_found_report);
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
@@ -103,8 +104,12 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                 } else if (String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Location field required",
                             Toast.LENGTH_SHORT).show();
-                } else {
-                    Date currentTime = Calendar.getInstance().getTime();
+                } else if(mFileName == null){
+                    Toast.makeText(EnterFoundReportActivity.this, "Picture required",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else{
+//                    Date currentTime = Calendar.getInstance().getTime();
 
                     Toast.makeText(EnterFoundReportActivity.this, "submitted",
                             Toast.LENGTH_LONG).show();
@@ -114,7 +119,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Report foundReport = new FoundReport(itemTitle.getText().toString(),
                             String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
-                            dropdownLocation.getSelectedItem().toString(), null);
+                            dropdownLocation.getSelectedItem().toString(), mFileName);
 
                     sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
                             dropdownLocation.getSelectedItem().toString());
@@ -128,7 +133,6 @@ public class EnterFoundReportActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
             ImageView mImageView = findViewById(R.id.img_viewer);
             mImageView.setColorFilter(Color.argb(255, 0, 255, 75));
 
