@@ -12,14 +12,16 @@ public class FoundReport implements Report {
     private String mDescription;
     private String mLocation;//location found
     private String mImageName;
+    private String mContact;
 
     /*Constructor*/
-    public FoundReport(String name, String type, String desc, String loc, String img) {
+    public FoundReport(String name, String type, String desc, String loc, String img, String contact) {
         this.mName = name;
         this.mType = type;
         this.mDescription = desc;
         this.mLocation = loc;
         this.mImageName = img;
+        this.mContact = contact;
     }
 
     /*Constructors*/
@@ -43,6 +45,7 @@ public class FoundReport implements Report {
     public String getImageName() {
         return this.mImageName;
     }
+    public String getContact() { return this.mContact; }
 //    public String getLeftLocation() {
 //        return this.myLeftLoc;
 //    }
@@ -61,4 +64,5 @@ public class FoundReport implements Report {
         this.mLocation = l;
     }
     public void setImageName(String str) {this.mImageName = str;}
+    public void setContact(String c) { this.mContact = c;}
 }

@@ -55,6 +55,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
         final EditText itemDescription = findViewById(R.id.found_report_description_editText);
+        final EditText itemContact = findViewById(R.id.found_report_contact);
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
          */
@@ -103,7 +104,11 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                 } else if (String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Location field required",
                             Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (itemContact.getText().toString().equals("")) {
+                    Toast.makeText(EnterFoundReportActivity.this, "Contact information required",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
                     Date currentTime = Calendar.getInstance().getTime();
 
                     Toast.makeText(EnterFoundReportActivity.this, "submitted",
@@ -114,7 +119,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Report foundReport = new FoundReport(itemTitle.getText().toString(),
                             String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
-                            dropdownLocation.getSelectedItem().toString(), mFileName);
+                            dropdownLocation.getSelectedItem().toString(), mFileName, itemContact.getText().toString());
 
                     sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
                             dropdownLocation.getSelectedItem().toString());
