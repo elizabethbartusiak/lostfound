@@ -22,7 +22,6 @@ Our data is structured in the form of a JSON tree:
           "description" : "Left at Perkins Front Desk",
           "location" : "Perkins",
           "name" : "Nike Water Bottle signed by Zion",
-          "time" : "Tue Dec 11 19:43:48 EST 2018",
           "type" : "water bottle"
         }
       }
@@ -33,7 +32,6 @@ Our data is structured in the form of a JSON tree:
           "description" : "Vintage Duke hoodie signed by Marvin Bagley",
           "location" : "Divinity School",
           "name" : "Blue Duke Hoodie",
-          "time" : "Tue Dec 11 20:01:46 EST 2018",
           "type" : "clothing"
         }
       }
@@ -43,7 +41,7 @@ Our data is structured in the form of a JSON tree:
 }
 ```
 
-Whenever a user reports a found item, this item will be stored as a JSON object with the attributes ```name``` (name of item), ```type``` (type of item), ```description``` (description of item), ```location``` (location where item was found) and ```time``` (time of report) as shown above. The user can also upload a picture of the item. 
+Whenever a user reports a found item, this item will be stored as a JSON object with the attributes ```name``` (name of item), ```type``` (type of item), ```description``` (description of item), and ```location``` (location where item was found) as shown above. The user can also upload a picture of the item. 
 
 Whenever a user reports a lost item, instead of storing lost item reports on the database, the information from the lost report will be used to query the data table of found items to determine if the item has been found, and the user will be presented with a list of found items that match the query that they entered. 
 
