@@ -11,13 +11,15 @@ public class FoundReport implements Report {
     private String myTime;//report's timestamp
     private String myLocation;//location found
     private String myLeftLoc;//location where item was left/can be retrieved
+    private String myImgName;
 
     /*Constructor*/
-    public FoundReport(String name, String type, String desc, String time, String loc, String leftLoc) {
+    public FoundReport(String name, String type, String desc, String time, String loc, String leftLoc, String img) {
         this.myItem = new Item(name, type, desc);
         this.myTime = time;
         this.myLocation = loc;
         this.myLeftLoc = leftLoc;
+        this.myImgName = img;
     }
 
     /**                 Accessors               **/
@@ -39,6 +41,7 @@ public class FoundReport implements Report {
     public String getLeftLocation() {
         return this.myLeftLoc;
     }
+    public String getImageName() {return this.myImgName;}
 
     /**              Mutators                   **/
     public void setName(String n) {
@@ -59,4 +62,5 @@ public class FoundReport implements Report {
     public void setLeftLocation(String l) {
         this.myLeftLoc = l;
     }
+    public void setImageName(String str) {this.myImgName = str;}
 }
