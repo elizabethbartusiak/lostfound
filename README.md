@@ -34,6 +34,9 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Overall Design Architecture
 
+We built this app using Android Studio. The front-end and UI was designed using XML. The app lifecycle and activities were coded in Java. On the backend, we used Firebase to host our database and the Android java.sql API for the interactions between our app and the database.
+
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
