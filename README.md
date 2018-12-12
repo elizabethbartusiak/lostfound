@@ -50,7 +50,7 @@ Our JSON tree has **4 layers**:
 3. Location where item was found
 4. Item object
 
-We chose to structure it this way as whenever 
+We chose to structure it this way as whenever we query the data table of found items, we first query by ```type```, then by ```location```. 
 
 ## Getting Started
 
