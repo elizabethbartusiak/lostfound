@@ -111,10 +111,14 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
                     startActivity(myIntent);
 
-                    Report foundReport = new FoundReport(itemTitle.getText().toString(), String.valueOf(dropdown.getSelectedItem()).toString(),
+                    Report foundReport = new FoundReport(itemTitle.getText().toString(),
+                            String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
-                            currentTime.toString(), dropdownLocation.getSelectedItem().toString(), mFileName);
-                    sendReportToFirebase(foundReport);
+                            dropdownLocation.getSelectedItem().toString(), null);
+
+                    sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
+                            dropdownLocation.getSelectedItem().toString());
+
                     uploadImgToFirebaseStorage();
                 }
             }
@@ -199,6 +203,12 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         return image;
     }
 
+    private void sendReportToFirebase(Report report, String type, String location) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+//      mDatabase.child("found").push().setValue(report);
+        mDatabase.child("found").child(type).child(location).push().setValue(report);
+    }
     private void dispatchTakePictureIntent () {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -222,9 +232,4 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         }
     }
 
-    private void sendReportToFirebase (Report report){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("found").push().setValue(report);
-    }
 }

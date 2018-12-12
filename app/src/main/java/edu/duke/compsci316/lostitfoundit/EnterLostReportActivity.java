@@ -36,7 +36,8 @@ public class EnterLostReportActivity extends AppCompatActivity {
         //get the spinner from the xml.
         final Spinner dropdown = findViewById(R.id.lost_report_type_spinner);
         //create a list of items for the spinner.
-        String[] items = new String[]{"What TYPE of item is it?", "water bottle", "clothing", "electronic", "DukeID"};
+        String[] items = new String[]{"What TYPE of item is it?", "clothing",
+                "electronic", "water bottle", "school supplies", "miscellaneous"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -80,6 +81,8 @@ public class EnterLostReportActivity extends AppCompatActivity {
                     sendReportToFirebase(report);
 
                     Intent intent = new Intent(EnterLostReportActivity.this, QueryResultsActivity.class);
+                    intent.putExtra("type", dropdown.getSelectedItem().toString());
+                    intent.putExtra("location", dropdownLocation.getSelectedItem().toString());
                     startActivity(intent);
 
                 }

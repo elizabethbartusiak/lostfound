@@ -7,21 +7,19 @@ package edu.duke.compsci316.lostitfoundit;
 
 public class FoundReport implements Report {
     /*FoundReport attributes*/
-    private String myName;
-    private String myType;
-    private String myDescription;
-    private String myTime;//report's timestamp
-    private String myLocation;//location found
-    private String myImgName;
+    private String mName;
+    private String mType;
+    private String mDescription;
+    private String mLocation;//location found
+    private String mImageName;
 
     /*Constructor*/
-    public FoundReport(String name, String type, String desc, String time, String loc, String img) {
-        this.myName = name;
-        this.myType = type;
-        this.myDescription = desc;
-        this.myTime = time;
-        this.myLocation = loc;
-        this.myImgName = img;
+    public FoundReport(String name, String type, String desc, String loc, String img) {
+        this.mName = name;
+        this.mType = type;
+        this.mDescription = desc;
+        this.mLocation = loc;
+        this.mImageName = img;
     }
 
     /*Constructors*/
@@ -30,23 +28,20 @@ public class FoundReport implements Report {
     }
 
     /**                 Accessors               **/
-    public String getTime() {
-        return this.myTime;
-    }
     public String getLocation() {
-        return this.myLocation;
+        return this.mLocation;
     }
     public String getName(){
-        return this.myName;
+        return this.mName;
     }
     public String getType(){
-        return this.myType;
+        return this.mType;
     }
     public String getDescription(){
-        return this.myDescription;
+        return this.mDescription;
     }
     public String getImageName() {
-        return this.myImgName;
+        return this.mImageName;
     }
 //    public String getLeftLocation() {
 //        return this.myLeftLoc;
@@ -54,19 +49,16 @@ public class FoundReport implements Report {
 
     /**              Mutators                   **/
     public void setName(String n) {
-        this.myName = n;
+        this.mName = n;
     }
     public void setType(String t) {
-        this.myType = t;
+        this.mType = t;
     }
     public void setDescription(String d) {
-        this.myDescription = d;
-    }
-    public void setTime(String t) {
-        this.myTime = t;
+        this.mDescription = d;
     }
     public void setLocation(String l) {
-        this.myLocation = l;
+        this.mLocation = l;
     }
-    public void setImageName(String str) {this.myImgName = str;}
+    public void setImageName(String str) {this.mImageName = str;}
 }

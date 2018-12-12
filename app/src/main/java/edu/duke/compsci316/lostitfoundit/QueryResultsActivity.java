@@ -1,5 +1,6 @@
 package edu.duke.compsci316.lostitfoundit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,9 +28,15 @@ public class QueryResultsActivity extends AppCompatActivity {
 
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
 
+        Intent i = getIntent();
+        String location = i.getStringExtra("location");
+        String type = i.getStringExtra("type");
+
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child("found");
+                .child("found")
+                .child(type)
+                .child(location);
 
         FirebaseRecyclerOptions<FoundReport> options =
                 new FirebaseRecyclerOptions.Builder<FoundReport>()
