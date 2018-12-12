@@ -18,7 +18,7 @@ We have generated an APK (Android Application Package) file. Just follow the ste
 If you don't own an Android device or if you just want to run the app on your local machine, you can also test it on Android Studio. You can download Android Studio [here](https://developer.android.com/studio/). 
 
 In this GitHub Repository, click 'Clone or Download':
-<p><img width="446" alt="screen shot 2018-02-02 at 7 59 23 pm" src="https://user-images.githubusercontent.com/22549537/35732222-99d93e68-0853-11e8-837e-82e40b77a0ba.png"></p>
+<p><img width="432" alt="screen shot 2018-12-11 at 9 27 40 pm" src="https://user-images.githubusercontent.com/22549537/49843002-a5476080-fd8b-11e8-9046-a00785a4d511.png"></p>
 
 If you're not familiar with Github and cloning repositories, you can simply click 'Download ZIP', unzip the folder, and open the directory on Android Studio. 
 
