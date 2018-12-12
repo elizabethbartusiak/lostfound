@@ -3,6 +3,7 @@ package edu.duke.compsci316.lostitfoundit;
 /**
  * Created by Elizabeth on 11/2/2018.
  * Edited by Ryan on 11/15/2018.
+ * currently deprecated - no longer necessary for current workflow, but not necessarily useless for scaling
  */
 
 public class LostReport implements Report {
@@ -11,7 +12,12 @@ public class LostReport implements Report {
     private String myTime;//report's timestamp
     private String myLocation;//location found
 
-    /*Constructor*/
+    /*Constructors*/
+    public LostReport (String type, String location) {
+        myItem = new Item(null,type,null);
+        myTime = "";
+        myLocation = location;
+    }
     public LostReport(String name, String type, String desc, String time, String loc) {
         this.myItem = new Item(name, type, desc);
         this.myTime = time;

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -20,11 +22,17 @@ import com.google.firebase.database.Query;
 public class QueryResultsActivity extends AppCompatActivity {
 
     FirebaseRecyclerAdapter mAdapter;
+    private TextView matchesFound;
+    private TextView noMatches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query_results);
+
+        matchesFound = findViewById(R.id.items_found);
+        noMatches = findViewById(R.id.no_matches);
+        noMatches.setVisibility(View.GONE);
 
         RecyclerView rv = findViewById(R.id.activity_query_results_rv);
 

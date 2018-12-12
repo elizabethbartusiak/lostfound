@@ -23,9 +23,9 @@ public class EnterLostReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_lost_report);
 
-        final EditText itemTitle = findViewById(R.id.lost_report_editText);
-        final EditText description = findViewById(R.id.lost_report_description_editText);
-        final EditText time = findViewById(R.id.lost_report_date_editText);
+//        final EditText itemTitle = findViewById(R.id.lost_report_editText);
+//        final EditText description = findViewById(R.id.lost_report_description_editText);
+//        final EditText time = findViewById(R.id.lost_report_date_editText);
 
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference();
@@ -47,7 +47,7 @@ public class EnterLostReportActivity extends AppCompatActivity {
         //LOCATION SPINNER
         final Spinner dropdownLocation = findViewById(R.id.lost_report_location_spinner);
         //create a list of items for the spinner.
-        String[] places = new String[]{"Where did you find it?", "West Union", "Bryan Center", "Divinity School", "East Campus"};
+        String[] places = new String[]{"Where did you lose it?", "West Union", "Bryan Center", "Divinity School", "East Campus"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
@@ -58,23 +58,16 @@ public class EnterLostReportActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.lost_report_submit_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(itemTitle.getText().toString().equals("")){
-                    Toast.makeText(EnterLostReportActivity.this, "Item Title required",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else if(String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")){
+                if(String.valueOf(dropdown.getSelectedItem()).equals("What TYPE of item is it?")){
                     Toast.makeText(EnterLostReportActivity.this, "TYPE field required",
                             Toast.LENGTH_SHORT).show();
                 }
-                else if(String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")){
+                else if(String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you lose it?")){
                     Toast.makeText(EnterLostReportActivity.this, "Location field required",
                             Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Report report = new LostReport(itemTitle.getText().toString(),
-                            String.valueOf(dropdown.getSelectedItem()),
-                            description.getText().toString(),
-                            time.getText().toString(),
+                    Report report = new LostReport(String.valueOf(dropdown.getSelectedItem()),
                             String.valueOf(dropdownLocation.getSelectedItem())
                             );
 
