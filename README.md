@@ -72,6 +72,12 @@ In this GitHub Repository, click 'Clone or Download':
 
 If you're not familiar with Github and cloning repositories, you can simply click 'Download ZIP', unzip the folder, and open the directory on Android Studio. Thereafter, follow [this](https://developer.android.com/studio/run/) tutorial to build and run the app. 
 
+## Limitations of our current implementation
+- **Android-only**: Our app is currently only Android-compatibile
+- 
+
+- Our app currently does not store information on lost reports that users have made, the only way for a user to find out if his/her lost item has been found is to keep querying the database to see the results. In the future, we can improve this by storing lost item reports, and implementing a scheduler that scans through the found items in the database periodically, and send mobile push notifications to a given user if his/her item has been found i.e. there has been a match with found item(s) in the database. 
+
 ## Team
 
 - Elizabeth Bartusiak
