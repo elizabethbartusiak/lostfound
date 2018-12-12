@@ -99,7 +99,7 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
                 .getReference()
                 .child(model.getImageName());
 
-        Toast.makeText(mContext, ref.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, ref.toString(), Toast.LENGTH_SHORT).show();
 
         Glide.with(mContext /* context */)
                 .using(new FirebaseImageLoader())

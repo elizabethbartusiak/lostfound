@@ -74,7 +74,7 @@
             tools:text="Location" />
 
         <TextView
-            android:id="@+id/contact"
+            android:id="@+id/details_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"

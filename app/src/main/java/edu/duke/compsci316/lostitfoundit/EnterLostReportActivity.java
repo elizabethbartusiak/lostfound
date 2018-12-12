@@ -96,7 +96,7 @@ public class EnterLostReportActivity extends AppCompatActivity {
 
         mRef.child("lost").push().setValue(report);
         Toast.makeText(EnterLostReportActivity.this, "Locating your item...",
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
     }
 
 

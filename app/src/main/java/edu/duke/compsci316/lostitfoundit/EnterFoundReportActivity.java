@@ -117,11 +117,6 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                 else{
 //                    Date currentTime = Calendar.getInstance().getTime();
 
-                    Toast.makeText(EnterFoundReportActivity.this, "submitted",
-                            Toast.LENGTH_LONG).show();
-                    Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
-                    startActivity(myIntent);
-
                     Report foundReport = new FoundReport(itemTitle.getText().toString(),
                             String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
@@ -131,6 +126,9 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                             dropdownLocation.getSelectedItem().toString());
 
                     uploadImgToFirebaseStorage();
+
+                    Intent myIntent = new Intent(EnterFoundReportActivity.this, MainActivity.class);
+                    startActivity(myIntent);
                 }
             }
         });
@@ -216,8 +214,10 @@ public class EnterFoundReportActivity extends AppCompatActivity {
     private void sendReportToFirebase(Report report, String type, String location) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-//      mDatabase.child("found").push().setValue(report);
         mDatabase.child("found").child(type).child(location).push().setValue(report);
+
+        Toast.makeText(EnterFoundReportActivity.this, "submitted",
+                Toast.LENGTH_SHORT).show();
     }
     private void dispatchTakePictureIntent () {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
