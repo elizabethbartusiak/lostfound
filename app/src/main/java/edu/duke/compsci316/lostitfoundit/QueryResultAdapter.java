@@ -13,8 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import static android.content.ContentValues.TAG;
 
@@ -81,6 +89,26 @@ public class QueryResultAdapter extends FirebaseRecyclerAdapter<FoundReport, Que
         holder.mImageView.setImageDrawable(itemImage);
         holder.mItemName.setText(model.getName());
         holder.mLocation.setText(model.getLocation());
+//
+//        DatabaseReference ref = FirebaseDatabase.getInstance()
+//                .getReference()
+//                .child("found")
+//                .child(model.getType())
+//                .child(model.getLocation())
+//                .child(model.get);
+        StorageReference ref = FirebaseStorage.getInstance()
+                .getReference()
+                .child("images/" + model.getImageName());
+
+        Toast.makeText(mContext, ref.toString(), Toast.LENGTH_SHORT).show();
+
+        Glide.with(mContext /* context */)
+                .using(new FirebaseImageLoader())
+                .load(ref)
+                .placeholder(android.R.drawable.ic_dialog_info)
+                .into(holder.mImageView);
+
+
     }
 
 }
