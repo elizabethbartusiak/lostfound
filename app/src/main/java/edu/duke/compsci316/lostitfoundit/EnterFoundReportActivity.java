@@ -114,7 +114,7 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                     Report foundReport = new FoundReport(itemTitle.getText().toString(),
                             String.valueOf(dropdown.getSelectedItem()).toString(),
                             itemDescription.getText().toString(),
-                            dropdownLocation.getSelectedItem().toString(), null);
+                            dropdownLocation.getSelectedItem().toString(), mFileName);
 
                     sendReportToFirebase(foundReport, String.valueOf(dropdown.getSelectedItem()).toString(),
                             dropdownLocation.getSelectedItem().toString());
