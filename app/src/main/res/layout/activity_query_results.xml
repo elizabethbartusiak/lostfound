@@ -8,16 +8,28 @@
     tools:context="edu.duke.compsci316.lostitfoundit.QueryResultsActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/items-found"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:fontFamily="sans-serif"
+        android:gravity="center"
         android:padding="10dp"
         android:text="These are the items we have found:"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
-        android:gravity="center"/>
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/no-matches"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="No matches found"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
