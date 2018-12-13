@@ -62,6 +62,13 @@ Our JSON tree has **4 layers**:
 
 We chose to structure it this way as whenever we query the data table of found items, we first query by ```type```, then by ```location```. 
 
+## Code Structure
+
+All code Java class definitions, e.g. ```FoundReport.java``` and app flow code is managed in the ```<ActivityName>Activity.java``` classes found in  ```app/src/main/java/edu/duke/compsci316/lostitfoundit```.
+
+All UI code is found in ```app/src/main/res/layout```, where each Activity corresponds to a like-named XML file in ```layout```.
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine or device for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
