@@ -43,7 +43,7 @@ public class QueryResultDetailsActivity extends AppCompatActivity {
         type.setText(report.getType());
         location.setText(report.getLocation());
         description.setText(report.getDescription());
-        contact.setText("Contact: ");
+        contact.setText("Contact: " + report.getContact());
 
     }
 }

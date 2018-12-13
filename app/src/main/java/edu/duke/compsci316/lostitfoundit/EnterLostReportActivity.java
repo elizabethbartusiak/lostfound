@@ -82,7 +82,7 @@ public class EnterLostReportActivity extends AppCompatActivity {
                             String.valueOf(dropdownLocation.getSelectedItem())
                     );
 
-                    sendReportToFirebase(report);
+//                    sendReportToFirebase(report);
 
                     Intent intent = new Intent(EnterLostReportActivity.this, QueryResultsActivity.class);
                     intent.putExtra("type", dropdown.getSelectedItem().toString());
