@@ -16,32 +16,54 @@ Our data is structured in the form of a JSON tree:
 ```
 {
   "found" : {
-    "water bottle" : {
-      "Perkins" : {
-        "-LTUre_BXjXiStaMnnKw" : {
-          "description" : "Left at Perkins Front Desk",
-          "location" : "Perkins",
-          "name" : "Nike Water Bottle signed by Zion",
-          "type" : "water bottle"
-        }
-      }
-    },
     "clothing" : {
-      "Divinity School" : {
-        "-LTUvltJDMgFL343CGnC" : {
-          "description" : "Vintage Duke hoodie signed by Marvin Bagley",
-          "location" : "Divinity School",
-          "name" : "Blue Duke Hoodie",
+      "East Campus Dorms" : {
+        "-LTZtJSFB3q8djyP2SHZ" : {
+          "description" : "Some Nike shoes. Signed by Hussein Bolt. ",
+          "imageName" : "JPEG_12-12-2018-07-08-56_",
+          "location" : "East Campus Dorms",
+          "name" : "Bolt Nike Shoes",
+          "type" : "clothing"
+        }
+      },
+      "Lilly Library" : {
+        "-LTZveTHJIpcp8_Kh8Xi" : {
+          "description" : "Bracelet with the words \"Friends until your time of death\" sewn into it in what seems to be human hair. ",
+          "imageName" : "JPEG_12-12-2018-07-18-48_",
+          "location" : "Lilly Library",
+          "name" : "Friendship Bracelet",
           "type" : "clothing"
         }
       }
-    }...
-      --- other JSON objects ommitted ---
+    },
+    "electronic" : {
+      "Marketplace" : {
+        "-LTZtsBPxLVOZDttYcl0" : {
+          "description" : "Slow-mo camera signed by Gavin Free. ",
+          "imageName" : "JPEG_12-12-2018-07-11-13_",
+          "location" : "Marketplace",
+          "name" : "Camera Slow Mo",
+          "type" : "electronic"
+        }
+      }
+    },
+    "miscellaneous" : {
+      "Marketplace" : {
+        "-LTZx17wzY6wY7xq8Xlh" : {
+          "contact" : "anne.hathaway@gmail.com",
+          "description" : "Stuffed fox plushie. ",
+          "imageName" : "JPEG_12-12-2018-07-24-42_",
+          "location" : "Marketplace",
+          "name" : "Stuffed animal",
+          "type" : "miscellaneous"
+        }
+      }
+    }
   }
 }
 ```
 
-Whenever a user reports a found item, this item will be stored as a JSON object with the attributes ```name``` (name of item), ```type``` (type of item), ```description``` (description of item), and ```location``` (location where item was found) as shown above. The user can also upload a picture of the item. 
+Whenever a user reports a found item, this item will be stored as a JSON object with the attributes ```name``` (name of item), ```imageName``` (to be used to query Firebase Storage to retrieve image), ```type``` (type of item), ```description``` (description of item), and ```location``` (location where item was found) as shown above. The user can also upload a picture of the item. 
 
 Whenever a user reports a lost item, instead of storing lost item reports on the database, the information from the lost report will be used to query the data table of found items to determine if the item has been found, and the user will be presented with a list of found items that match the query that they entered. 
 
