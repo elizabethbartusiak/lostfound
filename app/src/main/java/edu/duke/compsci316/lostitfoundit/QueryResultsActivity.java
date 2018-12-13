@@ -1,17 +1,22 @@
 package edu.duke.compsci316.lostitfoundit;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.view.View;
+import android.util.Log;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Shows results for queries
@@ -24,6 +29,7 @@ public class QueryResultsActivity extends AppCompatActivity {
     FirebaseRecyclerAdapter mAdapter;
     private TextView matchesFound;
     private TextView noMatches;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +57,24 @@ public class QueryResultsActivity extends AppCompatActivity {
                         .setQuery(query, FoundReport.class)
                         .build();
 
-        mAdapter = new QueryResultAdapter(this, options) ;
+        ValueEventListener vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    matchesFound.setVisibility(View.GONE);
+                    noMatches.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        };
+
+        query.addValueEventListener(vel);
+        mAdapter = new QueryResultAdapter(this, options) ;
         rv.setAdapter(mAdapter);
+
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
