@@ -71,14 +71,7 @@ All UI code is found in ```app/src/main/res/layout```, where each Activity corre
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine or device for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-## Deployment on Android device
-We have generated an APK (Android Application Package) file. Follow these steps:
-1. Connect your Android smartphone or tablet to your computer
-2. Download the APK file
-3. Once it's downloaded, open Downloads, tap on the APK file, and tap Yes when prompted
-4. The app will begin installing on your device
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ## Testing on Android Studio
 
