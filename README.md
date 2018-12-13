@@ -1,6 +1,6 @@
 # LostItFoundIt
 
-An app to help members of the Duke community find lost items. 
+An app to help members of the Duke community find their lost items. 
 
 ## Overall Design Architecture
 
