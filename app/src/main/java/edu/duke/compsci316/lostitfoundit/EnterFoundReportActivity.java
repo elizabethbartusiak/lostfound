@@ -56,13 +56,20 @@ public class EnterFoundReportActivity extends AppCompatActivity {
 
         final EditText itemTitle = findViewById(R.id.item_title_editText);
         final EditText itemDescription = findViewById(R.id.found_report_description_editText);
+        final EditText itemContact = findViewById(R.id.found_report_contact);
         /* following code from
             https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
          */
         //get the spinner from the xml.
         final Spinner dropdown = findViewById(R.id.type_spinner);
         //create a list of items for the spinner.
-        String[] items = new String[]{"What TYPE of item is it?", "water bottle", "clothing", "electronic", "DukeID"};
+        String[] items = new String[]{"What TYPE of item is it?",
+                "book",
+                "clothing",
+                "electronic",
+                "school supplies",
+                "water bottle",
+                "miscellaneous"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -72,7 +79,13 @@ public class EnterFoundReportActivity extends AppCompatActivity {
         //LOCATION SPINNER
         final Spinner dropdownLocation = findViewById(R.id.location_spinner);
         //create a list of items for the spinner.
-        String[] places = new String[]{"Where did you find it?", "West Union", "Bryan Center", "Divinity School", "East Campus"};
+        String[] places = new String[]{"Where did you find it?", "Baldwin Auditorium","Brodie Gym", "East Campus Classrooms",
+                "East Campus Dorms",
+                "Lilly Library", "Marketplace",
+                "Central Campus Dorms", "Swift Dorms", "Bryan Center", "Divinity School",
+                "Perkins/Bostock Library", "West Campus Classrooms",
+                "West Campus Dorms", "West Union",
+                "Wilson Gym", "On the Bus", "Others Locations"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(this,
@@ -103,6 +116,9 @@ public class EnterFoundReportActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 } else if (String.valueOf(dropdownLocation.getSelectedItem()).equals("Where did you find it?")) {
                     Toast.makeText(EnterFoundReportActivity.this, "Location field required",
+                            Toast.LENGTH_SHORT).show();
+                } else if(itemContact.getText().toString().equals("")){
+                    Toast.makeText(EnterFoundReportActivity.this, "Contact information required",
                             Toast.LENGTH_SHORT).show();
                 } else if(mFileName == null){
                     Toast.makeText(EnterFoundReportActivity.this, "Picture required",

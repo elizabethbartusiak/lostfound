@@ -71,6 +71,17 @@
         android:layout_marginBottom="3dp"
         android:text="Upload Photo" />
 
+    <EditText
+        android:id="@+id/found_report_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:ems="10"
+        android:hint="Preferred contact information"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="191dp" />
+
     <Button
         android:id="@+id/found_submit_button"
         android:layout_width="103dp"
