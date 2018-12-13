@@ -37,17 +37,6 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="131dp" />
 
-    <EditText
-        android:id="@+id/found_report_date_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Date"
-        android:layout_marginBottom="3dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="191dp" />
-
     <Spinner
         android:id="@+id/location_spinner"
         android:layout_width="match_parent"

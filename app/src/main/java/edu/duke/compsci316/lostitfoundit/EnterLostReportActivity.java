@@ -52,7 +52,7 @@ public class EnterLostReportActivity extends AppCompatActivity {
         //LOCATION SPINNER
         final Spinner dropdownLocation = findViewById(R.id.lost_report_location_spinner);
         //create a list of items for the spinner.
-        String[] places = new String[]{"Where did you find it?", "Baldwin Auditorium","Brodie Gym", "East Campus Classrooms",
+        String[] places = new String[]{"Where did you lose it?", "Baldwin Auditorium","Brodie Gym", "East Campus Classrooms",
                 "East Campus Dorms",
                 "Lilly Library", "Marketplace",
                 "Central Campus Dorms", "Swift Dorms", "Bryan Center", "Divinity School",
